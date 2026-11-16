@@ -1,0 +1,2040 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Klinik Fisioterapi Gerak Sehat — Gerak Lebih Bebas, Hidup Lebih Berkualitas</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Plus Jakarta Sans & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Plus Jakarta Sans', 'sans-serif'],
+                    },
+                    colors: {
+                        teal: {
+                            50: '#f0fdfa',
+                            100: '#ccfbf1',
+                            200: '#99f6e4',
+                            300: '#5eead4',
+                            400: '#2dd4bf',
+                            500: '#14b8a6',
+                            600: '#0d9488',
+                            700: '#0f766e',
+                            800: '#115e59',
+                            900: '#134e4a',
+                        },
+                        sage: {
+                            50: '#f4f7f5',
+                            100: '#e3ebe6',
+                            200: '#c7d7cd',
+                            600: '#4a705b',
+                            700: '#3b5949',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom smooth transitions and subtle scrollbar */
+        .page-section {
+            animation: fadeIn 0.35s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-700 font-sans antialiased selection:bg-teal-100 selection:text-teal-900 flex flex-col min-h-screen">
+
+    <!-- STICKY NAVIGATION HEADER -->
+    <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <!-- Brand Logo -->
+                <button onclick="navigateTo('beranda')" class="flex items-center gap-3 text-left group focus:outline-none">
+                    <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-teal-600 to-teal-700 flex items-center justify-center text-white shadow-md shadow-teal-600/20 group-hover:scale-105 transition-transform">
+                        <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M18 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                            <path d="M15 22v-4l-3-3 1-5 4 2h3"/>
+                            <path d="M7 14l3-4 3 1"/>
+                            <path d="M5 22l3-6"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <span class="font-heading font-bold text-lg sm:text-xl text-slate-900 block leading-tight">Fisioterapi <span class="text-teal-600">Prima</span></span>
+                        <span class="text-xs text-slate-500 font-medium hidden sm:block">Klinik Rehabilitasi & Pemulihan Gerak</span>
+                    </div>
+                </button>
+
+                <!-- Desktop Navigation Menu -->
+                <nav class="hidden lg:flex items-center gap-1 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/60" aria-label="Menu Utama">
+                    <button onclick="navigateTo('beranda')" data-nav="beranda" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all">
+                        Beranda
+                    </button>
+                    <button onclick="navigateTo('tentang')" data-nav="tentang" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all">
+                        Tentang Kami
+                    </button>
+                    <button onclick="navigateTo('layanan')" data-nav="layanan" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all">
+                        Layanan Fisioterapi
+                    </button>
+                    <button onclick="navigateTo('pemeriksaan')" data-nav="pemeriksaan" class="nav-btn px-4 py-2 rounded-xl text-sm font-semibold transition-all">
+                        Pemeriksaan & Konsultasi
+                    </button>
+                </nav>
+
+                <!-- Desktop Quick CTA & Mobile Menu Button -->
+                <div class="flex items-center gap-3">
+                    <button onclick="openBookingModal('Konsultasi Fisioterapi')" class="hidden sm:inline-flex items-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-teal-600/20 transition-all active:scale-95">
+                        <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                        <span>Jadwalkan Konsultasi</span>
+                    </button>
+
+                    <!-- Mobile Hamburger Button -->
+                    <button id="mobile-menu-btn" onclick="toggleMobileMenu()" class="lg:hidden p-2.5 rounded-xl text-slate-600 hover:bg-slate-100 hover:text-teal-700 focus:outline-none" aria-label="Buka Menu">
+                        <i data-lucide="menu" id="menu-icon-open" class="w-6 h-6"></i>
+                        <i data-lucide="x" id="menu-icon-close" class="w-6 h-6 hidden"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobile-menu" class="hidden lg:hidden bg-white border-t border-slate-100 px-4 pt-3 pb-5 space-y-2 shadow-lg">
+            <button onclick="navigateTo('beranda')" data-nav-mobile="beranda" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between">
+                <span>Beranda</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+            </button>
+            <button onclick="navigateTo('tentang')" data-nav-mobile="tentang" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between">
+                <span>Tentang Kami</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+            </button>
+            <button onclick="navigateTo('layanan')" data-nav-mobile="layanan" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between">
+                <span>Layanan Fisioterapi</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+            </button>
+            <button onclick="navigateTo('pemeriksaan')" data-nav-mobile="pemeriksaan" class="mobile-nav-btn w-full text-left px-4 py-3 rounded-xl text-sm font-semibold flex items-center justify-between">
+                <span>Pemeriksaan & Konsultasi</span>
+                <i data-lucide="chevron-right" class="w-4 h-4 opacity-50"></i>
+            </button>
+            <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+                <button onclick="openBookingModal('Konsultasi Fisioterapi'); toggleMobileMenu();" class="w-full flex items-center justify-center gap-2 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm px-5 py-3 rounded-xl shadow-sm">
+                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                    <span>Jadwalkan Konsultasi</span>
+                </button>
+                <button onclick="openContactModal(); toggleMobileMenu();" class="w-full flex items-center justify-center gap-2 bg-teal-50 text-teal-800 font-semibold text-sm px-5 py-2.5 rounded-xl">
+                    <i data-lucide="phone-call" class="w-4 h-4"></i>
+                    <span>Hubungi Kami</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="flex-grow">
+
+        <!-- =========================================================
+             HALAMAN 1: BERANDA (HOME PAGE)
+        ========================================================== -->
+        <section id="page-beranda" class="page-section">
+            <!-- Hero Section -->
+            <div class="relative overflow-hidden bg-gradient-to-br from-teal-50 via-white to-sky-50 border-b border-slate-200/60">
+                <!-- Decorative background shapes -->
+                <div class="absolute top-0 right-0 -translate-y-12 translate-x-1/4 w-96 h-96 bg-teal-200/30 rounded-full blur-3xl pointer-events-none"></div>
+                <div class="absolute bottom-0 left-0 translate-y-1/3 -translate-x-1/4 w-80 h-80 bg-sky-200/30 rounded-full blur-3xl pointer-events-none"></div>
+
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 relative">
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+                        <!-- Hero Text -->
+                        <div class="lg:col-span-7 space-y-6">
+                            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-teal-100/80 border border-teal-200 text-teal-800 text-xs sm:text-sm font-semibold">
+                                <span class="w-2 h-2 rounded-full bg-teal-600 animate-pulse"></span>
+                                Pelayanan Fisioterapi Profesional & Ramah Pasien
+                            </div>
+
+                            <h1 class="font-heading text-3xl sm:text-5xl lg:text-[3.25rem] font-extrabold text-slate-900 tracking-tight leading-[1.15]">
+                                Gerak Lebih Bebas, <span class="text-teal-600">Hidup Lebih Berkualitas</span>
+                            </h1>
+
+                            <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl">
+                                Layanan fisioterapi profesional untuk membantu Anda pulih dari nyeri, cedera, gangguan gerak, dan kondisi pasca operasi melalui pemeriksaan serta program terapi yang sesuai kebutuhan.
+                            </p>
+
+                            <!-- Hero CTA Buttons -->
+                            <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5 pt-2">
+                                <button onclick="openBookingModal('Konsultasi Fisioterapi')" class="inline-flex items-center justify-center gap-2.5 bg-teal-600 hover:bg-teal-700 text-white font-semibold px-7 py-4 rounded-2xl shadow-lg shadow-teal-600/25 transition-all hover:-translate-y-0.5">
+                                    <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                                    <span>Jadwalkan Konsultasi</span>
+                                </button>
+                                <button onclick="navigateTo('layanan')" class="inline-flex items-center justify-center gap-2.5 bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 hover:border-teal-300 font-semibold px-7 py-4 rounded-2xl shadow-sm transition-all">
+                                    <span>Lihat Layanan Kami</span>
+                                    <i data-lucide="arrow-right" class="w-5 h-5 text-teal-600"></i>
+                                </button>
+                            </div>
+
+                            <!-- Quick Trust Indicators -->
+                            <div class="grid grid-cols-3 gap-4 pt-6 border-t border-slate-200/80 max-w-xl">
+                                <div>
+                                    <p class="font-heading font-bold text-lg sm:text-xl text-teal-700">6 Peminatan</p>
+                                    <p class="text-xs sm:text-sm text-slate-500">Penanganan Terfokus</p>
+                                </div>
+                                <div>
+                                    <p class="font-heading font-bold text-lg sm:text-xl text-teal-700">Terukur</p>
+                                    <p class="text-xs sm:text-sm text-slate-500">Pemeriksaan Awal Detail</p>
+                                </div>
+                                <div>
+                                    <p class="font-heading font-bold text-lg sm:text-xl text-teal-700">Personal</p>
+                                    <p class="text-xs sm:text-sm text-slate-500">Sesuai Kondisi Pasien</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Hero Visual Illustration Card -->
+                        <div class="lg:col-span-5">
+                            <div class="relative bg-white rounded-3xl p-6 sm:p-8 shadow-xl shadow-slate-200/70 border border-slate-100">
+                                <!-- Decorative SVG Illustration of Movement & Care -->
+                                <div class="bg-gradient-to-br from-teal-50 to-sky-50 rounded-2xl p-6 mb-6 flex items-center justify-center relative overflow-hidden">
+                                    <svg class="w-full max-w-[260px] h-auto" viewBox="0 0 320 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <!-- Soft background circles -->
+                                        <circle cx="160" cy="110" r="85" fill="#CCFBF1" opacity="0.6"/>
+                                        <circle cx="160" cy="110" r="60" fill="#99F6E4" opacity="0.5"/>
+                                        <!-- Stylized Motion Arc -->
+                                        <path d="M65 155C95 85 225 85 255 155" stroke="#0D9488" stroke-width="4" stroke-linecap="round" stroke-dasharray="8 8"/>
+                                        <!-- Medical Cross Badge -->
+                                        <rect x="215" y="32" width="44" height="44" rx="12" fill="#FFFFFF" stroke="#99F6E4" stroke-width="2"/>
+                                        <path d="M237 44V64M227 54H247" stroke="#0D9488" stroke-width="3.5" stroke-linecap="round"/>
+                                        <!-- Stylized Human Movement Figure -->
+                                        <circle cx="155" cy="68" r="16" fill="#0F766E"/>
+                                        <path d="M135 102C145 92 168 92 178 104L198 132C202 137 198 144 192 144H172L166 178C165 184 159 188 153 187C147 186 143 180 144 174L150 142H132L116 168C113 173 106 175 101 172C96 169 94 162 97 157L122 115C125 110 130 105 135 102Z" fill="#14B8A6"/>
+                                        <!-- Pulse Line -->
+                                        <path d="M55 115H90L100 95L112 132L122 115H142" stroke="#0284C7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+
+                                <!-- Floating Process Highlights -->
+                                <div class="space-y-3">
+                                    <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                                        <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                            <i data-lucide="clipboard-check" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-heading font-bold text-slate-900 text-sm">Pemeriksaan Awal Menyeluruh</h3>
+                                            <p class="text-xs text-slate-600 mt-0.5">Penilaian postur, gerak sendi, kekuatan otot & riwayat keluhan.</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3.5 p-3.5 rounded-2xl bg-slate-50 border border-slate-100">
+                                        <div class="w-10 h-10 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+                                            <i data-lucide="activity" class="w-5 h-5"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-heading font-bold text-slate-900 text-sm">Terapi Terarah & Edukatif</h3>
+                                            <p class="text-xs text-slate-600 mt-0.5">Latihan terapeutik, terapi manual, modalitas fisik & panduan latihan di rumah.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pengertian Fisioterapi -->
+            <div class="py-16 sm:py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-gradient-to-r from-teal-50/90 via-sage-50 to-sky-50/80 rounded-3xl p-8 sm:p-12 border border-teal-100/80 shadow-sm">
+                        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                            <div class="lg:col-span-4">
+                                <span class="text-teal-700 font-bold text-xs uppercase tracking-wider bg-white px-3 py-1.5 rounded-full border border-teal-200/70 inline-block mb-3">Mengenal Fisioterapi</span>
+                                <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 leading-snug">
+                                    Pengertian Fisioterapi
+                                </h2>
+                                <div class="w-16 h-1.5 bg-teal-600 rounded-full mt-4"></div>
+                            </div>
+                            <div class="lg:col-span-8 space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed">
+                                <p>
+                                    Fisioterapi adalah layanan kesehatan yang berfokus pada pemulihan, pencegahan, dan peningkatan fungsi gerak tubuh. Melalui penilaian kondisi fisik, latihan terapeutik, terapi manual, serta penggunaan alat terapi yang tepat, fisioterapi membantu mengurangi nyeri dan meningkatkan kualitas hidup.
+                                </p>
+                                <p class="text-slate-600">
+                                    Kami hadir untuk mendampingi Anda dalam proses pemulihan secara aman, terarah, dan berkelanjutan—mulai dari keluhan nyeri otot dan sendi hingga rehabilitasi setelah cedera atau operasi.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tujuan Kami & Manfaat Fisioterapi -->
+            <div class="py-16 sm:py-20 bg-slate-50 border-y border-slate-200/60">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
+                    
+                    <!-- Tujuan Kami (6 Poin) -->
+                    <div>
+                        <div class="text-center max-w-2xl mx-auto mb-12">
+                            <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Komitmen Pemulihan</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-2">Tujuan Kami</h2>
+                            <p class="text-slate-600 mt-2 text-sm sm:text-base">Fokus utama kami dalam mendampingi setiap tahapan pemulihan Anda.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Membantu mengurangi nyeri dan ketidaknyamanan pada otot, sendi, serta saraf.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="dumbbell" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Memulihkan kekuatan, keseimbangan, koordinasi, dan fleksibilitas tubuh.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="footprints" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Membantu pasien kembali beraktivitas secara mandiri dan aman.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="shield-check" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Mencegah cedera berulang melalui edukasi dan latihan yang tepat.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="stethoscope" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Mendukung pemulihan pasca operasi, cedera olahraga, stroke, dan gangguan pernapasan.</p>
+                            </div>
+
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/70 shadow-sm hover:shadow-md hover:border-teal-200 transition-all flex items-start gap-4">
+                                <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="user-check" class="w-5 h-5"></i>
+                                </div>
+                                <p class="text-slate-700 font-medium leading-relaxed">Memberikan program terapi yang disesuaikan dengan kondisi dan kebutuhan setiap pasien.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Manfaat Fisioterapi (6 Poin) -->
+                    <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm">
+                        <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 pb-6 border-b border-slate-100">
+                            <div>
+                                <span class="text-sky-600 font-semibold text-sm uppercase tracking-wider">Dampak Positif Terapi</span>
+                                <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Manfaat Fisioterapi</h2>
+                            </div>
+                            <p class="text-sm text-slate-500 mt-2 md:mt-0">Pemulihan bertahap untuk kenyamanan gerak jangka panjang.</p>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-10 gap-y-5">
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Mengurangi nyeri secara bertahap melalui terapi yang sesuai kondisi.</p>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Memperbaiki fungsi gerak, seperti berjalan, duduk, berdiri, dan menggunakan tangan.</p>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Mempercepat pemulihan setelah cedera, operasi, atau penyakit tertentu.</p>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Meningkatkan kekuatan dan keseimbangan, terutama pada lansia atau pasien dengan risiko jatuh.</p>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Memperbaiki postur tubuh dan kebiasaan gerak yang tidak sehat.</p>
+                            </div>
+                            <div class="flex items-start gap-3.5">
+                                <div class="w-6 h-6 rounded-full bg-teal-100 text-teal-700 flex items-center justify-center shrink-0 mt-0.5">
+                                    <i data-lucide="check" class="w-4 h-4 stroke-[2.5]"></i>
+                                </div>
+                                <p class="text-slate-700 leading-relaxed">Mendukung kualitas hidup agar pasien dapat kembali beraktivitas sehari-hari dengan lebih percaya diri.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Layanan Unggulan (6 Layanan) -->
+            <div class="py-16 sm:py-20 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-12 gap-4">
+                        <div>
+                            <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Solusi Rehabilitasi</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Layanan Unggulan</h2>
+                        </div>
+                        <button onclick="navigateTo('layanan')" class="inline-flex items-center gap-2 text-teal-700 hover:text-teal-800 font-semibold text-sm group">
+                            <span>Lihat Detail Semua Peminatan</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <!-- 1. Pemeriksaan Fisioterapi -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="clipboard-list" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Pemeriksaan Fisioterapi</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Penilaian kondisi gerak, kekuatan, postur, dan keluhan pasien.</p>
+                            </div>
+                            <button onclick="navigateTo('pemeriksaan')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Alur Pemeriksaan</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- 2. Fisioterapi Muskuloskeletal -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="bone" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Fisioterapi Muskuloskeletal</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Nyeri leher, punggung, bahu, lutut, dan cedera otot-sendi.</p>
+                            </div>
+                            <button onclick="openSpecialtyFromHome('muskuloskeletal')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Detail Layanan</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- 3. Fisioterapi Neurologis -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="brain" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Fisioterapi Neurologis</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Rehabilitasi pasca stroke, gangguan keseimbangan, dan kelumpuhan.</p>
+                            </div>
+                            <button onclick="openSpecialtyFromHome('neurologis')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Detail Layanan</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- 4. Fisioterapi Kardiopulmoner -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="wind" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Fisioterapi Kardiopulmoner</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Latihan pernapasan dan pemulihan kondisi jantung-paru.</p>
+                            </div>
+                            <button onclick="openSpecialtyFromHome('kardiopulmoner')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Detail Layanan</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- 5. Fisioterapi Olahraga -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="trophy" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Fisioterapi Olahraga</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Penanganan cedera olahraga dan program pemulihan atlet.</p>
+                            </div>
+                            <button onclick="openSpecialtyFromHome('olahraga')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Detail Layanan</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- 6. Fisioterapi Pasca Operasi -->
+                        <div class="group bg-slate-50 hover:bg-white rounded-2xl p-6 border border-slate-200/80 hover:border-teal-300 hover:shadow-lg hover:shadow-teal-900/5 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="w-12 h-12 rounded-2xl bg-sky-600 text-white flex items-center justify-center mb-5 shadow-sm">
+                                    <i data-lucide="heart-pulse" class="w-6 h-6"></i>
+                                </div>
+                                <h3 class="font-heading text-lg font-bold text-slate-900 mb-2">Fisioterapi Pasca Operasi</h3>
+                                <p class="text-slate-600 text-sm leading-relaxed">Rehabilitasi setelah operasi tulang, sendi, atau ligamen.</p>
+                            </div>
+                            <button onclick="openBookingModal('Fisioterapi Pasca Operasi')" class="mt-5 inline-flex items-center gap-1.5 text-xs font-semibold text-teal-700 hover:text-teal-800">
+                                <span>Jadwalkan Rehabilitasi</span>
+                                <i data-lucide="chevron-right" class="w-4 h-4"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ajakan Bertindak (CTA Banner Home) -->
+            <div class="pb-20 pt-4 bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="bg-gradient-to-br from-teal-700 via-teal-800 to-slate-900 rounded-3xl p-8 sm:p-12 lg:p-14 text-white shadow-xl relative overflow-hidden">
+                        <div class="absolute right-0 top-0 w-72 h-72 bg-teal-400/10 rounded-full -translate-y-1/2 translate-x-1/3 blur-2xl"></div>
+                        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                            <div class="max-w-2xl space-y-3">
+                                <h2 class="font-heading text-2xl sm:text-3xl font-bold leading-tight">
+                                    Mulailah langkah pemulihan Anda hari ini.
+                                </h2>
+                                <p class="text-teal-100 text-base sm:text-lg leading-relaxed">
+                                    Hubungi kami untuk konsultasi dan pemeriksaan fisioterapi bersama tenaga profesional.
+                                </p>
+                            </div>
+                            <div class="flex flex-col sm:flex-row gap-3.5 shrink-0">
+                                <button onclick="openContactModal()" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-semibold px-6 py-3.5 rounded-2xl transition-all">
+                                    <i data-lucide="phone" class="w-5 h-5"></i>
+                                    <span>Hubungi Kami</span>
+                                </button>
+                                <button onclick="openBookingModal('Konsultasi & Pemeriksaan Awal')" class="inline-flex items-center justify-center gap-2 bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold px-7 py-3.5 rounded-2xl shadow-lg transition-all">
+                                    <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+                                    <span>Buat Jadwal</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             HALAMAN 2: TENTANG KAMI
+        ========================================================== -->
+        <section id="page-tentang" class="page-section hidden">
+            <!-- Page Header -->
+            <div class="bg-gradient-to-b from-teal-50/80 to-white border-b border-slate-200/70 py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-teal-700 font-semibold text-xs uppercase tracking-wider bg-teal-100/80 px-3 py-1 rounded-full">Profil Layanan</span>
+                    <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Tentang Kami</h1>
+                    <p class="text-slate-600 mt-2 max-w-2xl text-base sm:text-lg">Mengenal komitmen, nilai pelayanan, dan pendekatan profesional kami dalam mendampingi pemulihan gerak Anda.</p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 space-y-16">
+                
+                <!-- Siapa Kami -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
+                    <div class="lg:col-span-5">
+                        <div class="bg-gradient-to-br from-teal-50 to-sage-100 rounded-2xl p-8 flex flex-col items-center text-center border border-teal-100">
+                            <div class="w-16 h-16 rounded-2xl bg-teal-600 text-white flex items-center justify-center mb-4 shadow-md">
+                                <i data-lucide="users" class="w-8 h-8"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg">Pendekatan Berpusat pada Pasien</h3>
+                            <p class="text-sm text-slate-600 mt-2">Edukasi, pemahaman kondisi tubuh, dan latihan mandiri untuk mencegah keluhan berulang.</p>
+                        </div>
+                    </div>
+                    <div class="lg:col-span-7 space-y-4">
+                        <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Siapa Kami</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900">Mitra Pemulihan Fungsi Gerak & Kualitas Hidup Anda</h2>
+                        <p class="text-slate-700 text-base sm:text-lg leading-relaxed">
+                            Kami adalah layanan fisioterapi yang berkomitmen membantu setiap pasien mencapai perbaikan fungsi gerak, mengurangi nyeri, dan kembali menjalani aktivitas dengan lebih baik.
+                        </p>
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            Kami percaya bahwa pemulihan tidak hanya soal menghilangkan keluhan, tetapi juga membantu pasien memahami kondisi tubuhnya, melakukan latihan dengan benar, dan mencegah masalah terulang di kemudian hari.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Tim Fisioterapis Kami (4 Photocard dengan Pop-up Detail) -->
+                <div>
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Tenaga Profesional</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Tim Fisioterapis Kami</h2>
+                        <p class="text-slate-600 mt-2 text-sm sm:text-base">Klik pada masing-masing kartu profil untuk melihat detail Nama, NPM, dan bidang spesialisasi.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Photocard 1: Spesialisasi Olahraga -->
+                        <div onclick="openTherapistModal(0)" role="button" tabindex="0" class="group bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 cursor-pointer flex flex-col">
+                            <div class="relative aspect-[4/5] bg-gradient-to-br from-teal-100 to-sky-100 overflow-hidden">
+                                <img src="foto1.jpeg" onerror="this.src='https://placehold.co/400x500/0d9488/ffffff?text=Fisioterapis+Olahraga'" alt="Foto Fisioterapis Olahraga" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                <span class="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm text-teal-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    Olahraga
+                                </span>
+                                <div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 text-teal-700 flex items-center justify-center shadow-md group-hover:bg-teal-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-heading font-bold text-slate-900 text-lg group-hover:text-teal-700 transition-colors">Adiyatma Dasta Putra, S.Tr.Kes (Ft)</h3>
+                                    <p class="text-xs font-medium text-slate-500 mt-0.5">NPM: 2606810506</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-teal-600">
+                                    <span>Lihat Detail Profil</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photocard 2: Spesialisasi Neurologi -->
+                        <div onclick="openTherapistModal(1)" role="button" tabindex="0" class="group bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 cursor-pointer flex flex-col">
+                            <div class="relative aspect-[4/5] bg-gradient-to-br from-sky-100 to-teal-100 overflow-hidden">
+                                <img src="foto2.jpeg" onerror="this.src='https://placehold.co/400x500/0284c7/ffffff?text=Fisioterapis+Neurologi'" alt="Foto Fisioterapis Neurologi" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                <span class="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm text-sky-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    Neurologi
+                                </span>
+                                <div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 text-sky-700 flex items-center justify-center shadow-md group-hover:bg-sky-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-heading font-bold text-slate-900 text-lg group-hover:text-sky-700 transition-colors">Kayla Nisa Kirana, S. Tr. Kes (Ft)</h3>
+                                    <p class="text-xs font-medium text-slate-500 mt-0.5">NPM: 2606864276</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-sky-600">
+                                    <span>Lihat Detail Profil</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photocard 3: Spesialisasi Pediatri -->
+                        <div onclick="openTherapistModal(2)" role="button" tabindex="0" class="group bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 cursor-pointer flex flex-col">
+                            <div class="relative aspect-[4/5] bg-gradient-to-br from-teal-100 to-emerald-100 overflow-hidden">
+                                <img src="foto2.jpeg" onerror="this.src='https://placehold.co/400x500/059669/ffffff?text=Fisioterapis+Pediatri'" alt="Foto Fisioterapis Pediatri" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                <span class="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm text-emerald-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    Pediatri
+                                </span>
+                                <div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 text-emerald-700 flex items-center justify-center shadow-md group-hover:bg-emerald-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-heading font-bold text-slate-900 text-lg group-hover:text-emerald-700 transition-colors">Errika Dyah Haryanti, S. Tr. Kes (Ft) </h3>
+                                    <p class="text-xs font-medium text-slate-500 mt-0.5">NPM: 2606889846</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-emerald-600">
+                                    <span>Lihat Detail Profil</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Photocard 4: Spesialisasi Kardiopulmoner -->
+                        <div onclick="openTherapistModal(3)" role="button" tabindex="0" class="group bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm hover:shadow-xl hover:border-teal-300 transition-all duration-300 cursor-pointer flex flex-col">
+                            <div class="relative aspect-[4/5] bg-gradient-to-br from-cyan-100 to-teal-100 overflow-hidden">
+                                <img src="foto2.jpeg" onerror="this.src='https://placehold.co/400x500/0891b2/ffffff?text=Fisioterapis+Kardiopulmoner'" alt="Foto Fisioterapis Kardiopulmoner" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-slate-900/10 to-transparent opacity-80 group-hover:opacity-90 transition-opacity"></div>
+                                <span class="absolute top-3.5 left-3.5 bg-white/95 backdrop-blur-sm text-cyan-800 text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                                    Kardiopulmoner
+                                </span>
+                                <div class="absolute bottom-3.5 right-3.5 w-9 h-9 rounded-full bg-white/90 text-cyan-700 flex items-center justify-center shadow-md group-hover:bg-cyan-600 group-hover:text-white transition-colors">
+                                    <i data-lucide="maximize-2" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            <div class="p-5 flex-grow flex flex-col justify-between">
+                                <div>
+                                    <h3 class="font-heading font-bold text-slate-900 text-lg group-hover:text-cyan-700 transition-colors">Intan Nurmalia, S. Tr. Kes (Ft)</h3>
+                                    <p class="text-xs font-medium text-slate-500 mt-0.5">NPM: 2606863954</p>
+                                </div>
+                                <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-semibold text-cyan-600">
+                                    <span>Lihat Detail Profil</span>
+                                    <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Visi Kami & Misi Kami -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+                    <!-- Visi -->
+                    <div class="lg:col-span-5 bg-gradient-to-br from-teal-700 to-teal-900 text-white p-8 sm:p-10 rounded-3xl shadow-md flex flex-col justify-between">
+                        <div>
+                            <div class="w-12 h-12 rounded-2xl bg-white/15 flex items-center justify-center mb-6">
+                                <i data-lucide="eye" class="w-6 h-6 text-teal-200"></i>
+                            </div>
+                            <span class="text-teal-200 font-semibold text-xs uppercase tracking-wider">Arah Pelayanan</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold mt-1 mb-4">Visi Kami</h2>
+                            <p class="text-teal-50 text-lg sm:text-xl font-medium leading-relaxed">
+                                “Menjadi layanan fisioterapi yang terpercaya, profesional, dan berorientasi pada pemulihan fungsi serta kualitas hidup pasien.”
+                            </p>
+                        </div>
+                        <div class="mt-8 pt-6 border-t border-white/15 flex items-center gap-3 text-sm text-teal-200">
+                            <i data-lucide="award" class="w-5 h-5 shrink-0"></i>
+                            <span>Standar pelayanan etis & berbasis kebutuhan individu</span>
+                        </div>
+                    </div>
+
+                    <!-- Misi (5 Poin) -->
+                    <div class="lg:col-span-7 bg-white p-8 sm:p-10 rounded-3xl border border-slate-200/80 shadow-sm">
+                        <span class="text-teal-600 font-semibold text-xs uppercase tracking-wider">Langkah Nyata</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1 mb-6">Misi Kami</h2>
+                        <ul class="space-y-4">
+                            <li class="flex items-start gap-3.5">
+                                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">1</span>
+                                <span class="text-slate-700 leading-relaxed">Memberikan pelayanan fisioterapi yang aman, etis, dan berbasis kebutuhan pasien.</span>
+                            </li>
+                            <li class="flex items-start gap-3.5">
+                                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">2</span>
+                                <span class="text-slate-700 leading-relaxed">Melakukan pemeriksaan serta penilaian secara menyeluruh sebelum menentukan program terapi.</span>
+                            </li>
+                            <li class="flex items-start gap-3.5">
+                                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">3</span>
+                                <span class="text-slate-700 leading-relaxed">Menyediakan perawatan yang nyaman, modern, dan berorientasi pada hasil.</span>
+                            </li>
+                            <li class="flex items-start gap-3.5">
+                                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">4</span>
+                                <span class="text-slate-700 leading-relaxed">Memberikan edukasi agar pasien mampu menjaga kesehatan gerak secara mandiri.</span>
+                            </li>
+                            <li class="flex items-start gap-3.5">
+                                <span class="w-7 h-7 rounded-full bg-teal-100 text-teal-700 font-bold text-xs flex items-center justify-center shrink-0 mt-0.5">5</span>
+                                <span class="text-slate-700 leading-relaxed">Membangun komunikasi yang baik antara pasien, keluarga, dan tenaga kesehatan.</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Nilai Kami (5 Nilai) -->
+                <div>
+                    <div class="text-center max-w-2xl mx-auto mb-10">
+                        <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Prinsip Kerja</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Nilai Kami</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5">
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all">
+                            <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+                                <i data-lucide="badge-check" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">Profesional</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Setiap layanan dilakukan secara terampil dan bertanggung jawab.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all">
+                            <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                                <i data-lucide="heart" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">Peduli</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Kami mendengarkan keluhan pasien dan mendampingi proses pemulihan.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all">
+                            <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+                                <i data-lucide="shield" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">Aman</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Prosedur terapi disesuaikan dengan kondisi dan kemampuan pasien.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all">
+                            <div class="w-11 h-11 rounded-xl bg-sky-50 text-sky-600 flex items-center justify-center mb-4">
+                                <i data-lucide="book-open" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">Edukatif</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Pasien diberi pemahaman mengenai kondisi, latihan, dan pencegahan cedera.</p>
+                        </div>
+
+                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all sm:col-span-2 lg:col-span-1">
+                            <div class="w-11 h-11 rounded-xl bg-teal-50 text-teal-600 flex items-center justify-center mb-4">
+                                <i data-lucide="trending-up" class="w-6 h-6"></i>
+                            </div>
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-2">Berorientasi pada hasil</h3>
+                            <p class="text-sm text-slate-600 leading-relaxed">Program terapi dievaluasi secara berkala agar perkembangan pasien terpantau.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mengapa Memilih Kami (6 Poin) -->
+                <div class="bg-sage-50 rounded-3xl p-8 sm:p-10 border border-sage-200/70">
+                    <div class="max-w-2xl mb-8">
+                        <span class="text-sage-700 font-semibold text-xs uppercase tracking-wider">Keunggulan Pelayanan</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Mengapa Memilih Kami</h2>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Pemeriksaan awal sebelum terapi dilakukan.</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Program latihan disesuaikan dengan kondisi pasien.</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Tenaga fisioterapi yang terlatih dan komunikatif.</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Fasilitas yang nyaman dan mendukung proses rehabilitasi.</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Edukasi pasca terapi untuk menjaga hasil pemulihan.</span>
+                        </div>
+                        <div class="bg-white p-5 rounded-2xl border border-slate-200/60 flex items-center gap-3.5 shadow-sm">
+                            <div class="w-9 h-9 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center shrink-0">
+                                <i data-lucide="check-circle-2" class="w-5 h-5"></i>
+                            </div>
+                            <span class="font-medium text-slate-800 text-sm sm:text-base">Layanan yang berfokus pada kebutuhan, keamanan, dan kenyamanan pasien.</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             HALAMAN 3: LAYANAN FISIOTERAPI
+        ========================================================== -->
+        <section id="page-layanan" class="page-section hidden">
+            <!-- Page Header -->
+            <div class="bg-gradient-to-b from-teal-50/80 to-white border-b border-slate-200/70 py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-teal-700 font-semibold text-xs uppercase tracking-wider bg-teal-100/80 px-3 py-1 rounded-full">Program & Modalitas</span>
+                    <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Layanan Fisioterapi Kami</h1>
+                    <p class="text-slate-600 mt-3 max-w-3xl text-base sm:text-lg leading-relaxed">
+                        Kami menyediakan layanan fisioterapi untuk berbagai keluhan gerak, nyeri, cedera, dan kondisi yang memerlukan rehabilitasi. Setiap pasien akan mendapatkan penilaian awal agar program terapi dapat disesuaikan dengan kondisi dan tujuan pemulihannya.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 space-y-16">
+                
+                <!-- Stase atau Peminatan Fisioterapi -->
+                <div>
+                    <div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+                        <div>
+                            <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Bidang Penanganan</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Stase atau Peminatan Fisioterapi</h2>
+                        </div>
+                        <p class="text-sm text-slate-500">Pilih kategori peminatan untuk melihat detail indikasi & program terapi.</p>
+                    </div>
+
+                    <!-- Interactive Filter Tabs for 6 Specialties -->
+                    <div class="flex overflow-x-auto no-scrollbar gap-2 pb-4 mb-6" id="specialty-tabs">
+                        <button onclick="filterSpecialty('all')" data-spec="all" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-teal-600 text-white shadow-sm transition-all">
+                            Semua Peminatan (6)
+                        </button>
+                        <button onclick="filterSpecialty('muskuloskeletal')" data-spec="muskuloskeletal" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            1. Muskuloskeletal
+                        </button>
+                        <button onclick="filterSpecialty('neurologis')" data-spec="neurologis" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            2. Neurologis
+                        </button>
+                        <button onclick="filterSpecialty('kardiopulmoner')" data-spec="kardiopulmoner" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            3. Kardiopulmoner
+                        </button>
+                        <button onclick="filterSpecialty('olahraga')" data-spec="olahraga" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            4. Olahraga
+                        </button>
+                        <button onclick="filterSpecialty('pediatri')" data-spec="pediatri" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            5. Pediatri
+                        </button>
+                        <button onclick="filterSpecialty('geriatri')" data-spec="geriatri" class="spec-tab-btn px-4 py-2.5 rounded-xl text-sm font-semibold whitespace-nowrap bg-white text-slate-700 border border-slate-200 hover:border-teal-300 transition-all">
+                            6. Geriatri
+                        </button>
+                    </div>
+
+                    <!-- Cards Grid for the 6 Specialties -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-7" id="specialty-cards-container">
+                        
+                        <!-- 1. Fisioterapi Muskuloskeletal -->
+                        <article data-specialty-card="muskuloskeletal" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-teal-600 text-white font-heading font-bold flex items-center justify-center shrink-0">1</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Muskuloskeletal</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-teal-50 text-teal-600 shrink-0"><i data-lucide="bone" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-teal-50/70 px-4 py-3 rounded-xl border border-teal-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada gangguan otot, tulang, sendi, dan jaringan penyangga tubuh.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Nyeri leher, punggung, dan pinggang</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Nyeri bahu, siku, pergelangan tangan, lutut, atau kaki</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Cedera otot dan ligamen</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Nyeri sendi akibat artritis</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Postur tubuh kurang baik</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Kaku otot dan gangguan gerak</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Penilaian postur dan fungsi gerak</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Terapi manual</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan penguatan dan peregangan</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Modalitas fisik, seperti TENS, ultrasound, atau terapi panas/dingin sesuai indikasi</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Edukasi ergonomi dan pencegahan cedera</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Muskuloskeletal')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 2. Fisioterapi Neurologis -->
+                        <article data-specialty-card="neurologis" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-heading font-bold flex items-center justify-center shrink-0">2</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Neurologis</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-sky-50 text-sky-600 shrink-0"><i data-lucide="brain" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-sky-50/70 px-4 py-3 rounded-xl border border-sky-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada pemulihan fungsi gerak akibat gangguan sistem saraf.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Pasca stroke</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan keseimbangan</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Vertigo atau pusing tertentu sesuai penilaian</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Kelumpuhan atau kelemahan anggota gerak</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan koordinasi tubuh</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Kondisi saraf tertentu sesuai rujukan dan penilaian</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan keseimbangan dan koordinasi</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan kekuatan otot</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan fungsi tangan dan kaki</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan berjalan</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Edukasi keluarga untuk mendampingi pemulihan di rumah</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Neurologis')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 3. Fisioterapi Kardiopulmoner -->
+                        <article data-specialty-card="kardiopulmoner" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-teal-600 text-white font-heading font-bold flex items-center justify-center shrink-0">3</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Kardiopulmoner</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-teal-50 text-teal-600 shrink-0"><i data-lucide="wind" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-teal-50/70 px-4 py-3 rounded-xl border border-teal-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada peningkatan fungsi pernapasan dan daya tahan tubuh.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan pernapasan, seperti asma atau pneumonia</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Pasca operasi</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Pasien dengan produksi lendir berlebih</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Penurunan kapasitas paru</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Kondisi jantung tertentu sesuai indikasi dan rujukan medis</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan pernapasan</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Teknik pembuangan lendir</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan batuk efektif</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan mobilisasi dini</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan kebugaran bertahap</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Kardiopulmoner')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 4. Fisioterapi Olahraga -->
+                        <article data-specialty-card="olahraga" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-heading font-bold flex items-center justify-center shrink-0">4</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Olahraga</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-sky-50 text-sky-600 shrink-0"><i data-lucide="trophy" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-sky-50/70 px-4 py-3 rounded-xl border border-sky-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada pencegahan dan pemulihan cedera akibat aktivitas fisik maupun olahraga.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Cedera otot, sendi, atau ligamen</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Nyeri akibat latihan berlebihan</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Pemulihan setelah cedera olahraga</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Peningkatan performa dan kebugaran</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Pencegahan cedera berulang</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Skrining gerak dan kebugaran</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan penguatan otot</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan fleksibilitas</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Program kembali berolahraga secara bertahap</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Edukasi teknik gerak yang aman</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Olahraga')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 5. Fisioterapi Pediatri -->
+                        <article data-specialty-card="pediatri" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-teal-600 text-white font-heading font-bold flex items-center justify-center shrink-0">5</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Pediatri</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-teal-50 text-teal-600 shrink-0"><i data-lucide="baby" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-teal-50/70 px-4 py-3 rounded-xl border border-teal-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada mendukung perkembangan gerak anak sesuai tahap usianya.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Keterlambatan perkembangan motorik</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan postur</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan keseimbangan</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Kondisi tertentu yang memengaruhi fungsi gerak anak</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Penilaian perkembangan gerak</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan motorik kasar dan halus</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan keseimbangan</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Edukasi orang tua untuk latihan di rumah</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Pediatri')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+
+                        <!-- 6. Fisioterapi Geriatri -->
+                        <article data-specialty-card="geriatri" class="bg-white rounded-3xl p-7 sm:p-8 border border-slate-200/80 shadow-sm hover:border-teal-300 transition-all flex flex-col justify-between">
+                            <div>
+                                <div class="flex items-start justify-between gap-4 mb-4">
+                                    <div class="flex items-center gap-3.5">
+                                        <span class="w-10 h-10 rounded-xl bg-sky-600 text-white font-heading font-bold flex items-center justify-center shrink-0">6</span>
+                                        <h3 class="font-heading text-xl font-bold text-slate-900">Fisioterapi Geriatri</h3>
+                                    </div>
+                                    <span class="p-2.5 rounded-xl bg-sky-50 text-sky-600 shrink-0"><i data-lucide="accessibility" class="w-5 h-5"></i></span>
+                                </div>
+                                <p class="text-slate-700 font-medium bg-sky-50/70 px-4 py-3 rounded-xl border border-sky-100 mb-6 text-sm sm:text-base">
+                                    Fokus pada menjaga fungsi gerak, kemandirian, dan kualitas hidup lansia.
+                                </p>
+
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="user-plus" class="w-4 h-4 text-teal-600"></i> Cocok untuk:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Penurunan kekuatan otot</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Gangguan keseimbangan</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Risiko jatuh</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Nyeri sendi atau otot</li>
+                                            <li class="flex items-start gap-2"><span class="text-teal-600 font-bold">•</span> Penurunan kemampuan berjalan</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h4 class="font-heading font-bold text-slate-900 text-sm uppercase tracking-wider mb-3 flex items-center gap-2">
+                                            <i data-lucide="sparkles" class="w-4 h-4 text-sky-600"></i> Program yang dapat diberikan:
+                                        </h4>
+                                        <ul class="space-y-2 text-sm text-slate-600">
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan kekuatan dan keseimbangan</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Latihan mobilitas</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Program pencegahan jatuh</li>
+                                            <li class="flex items-start gap-2"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-0.5"></i> Edukasi aktivitas aman sehari-hari</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="mt-7 pt-5 border-t border-slate-100 flex justify-end">
+                                <button onclick="openBookingModal('Fisioterapi Geriatri')" class="inline-flex items-center gap-2 text-sm font-semibold text-teal-700 hover:text-teal-800 bg-teal-50 hover:bg-teal-100 px-4 py-2.5 rounded-xl transition-colors">
+                                    <i data-lucide="calendar-plus" class="w-4 h-4"></i>
+                                    <span>Jadwalkan Terapi Ini</span>
+                                </button>
+                            </div>
+                        </article>
+                    </div>
+                </div>
+
+                <!-- Tindakan dan Terapi yang Tersedia (12 Poin + Penjelasan Modalitas) -->
+                <div class="bg-gradient-to-br from-slate-900 via-slate-800 to-teal-950 text-white rounded-3xl p-8 sm:p-12 shadow-lg">
+                    <div class="max-w-3xl mb-8">
+                        <span class="text-teal-300 font-semibold text-xs uppercase tracking-wider">Metode & Modalitas</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold mt-1">Tindakan dan Terapi yang Tersedia</h2>
+                        <p class="text-slate-300 mt-2 text-sm sm:text-base">Rangkaian tindakan fisioterapi yang diberikan sesuai hasil pemeriksaan klinis masing-masing pasien.</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Pemeriksaan dan penilaian fisioterapi</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Terapi latihan terapeutik</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Terapi manual</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Latihan postur</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Latihan penguatan otot</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Latihan peregangan</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Latihan keseimbangan</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Terapi elektro, seperti TENS, sesuai indikasi</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Ultrasound terapeutik sesuai indikasi</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Terapi panas atau dingin sesuai kebutuhan</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Taping atau pemasangan tape, sesuai indikasi</span>
+                        </div>
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/10 rounded-2xl p-4 flex items-center gap-3">
+                            <i data-lucide="check-circle" class="w-5 h-5 text-teal-400 shrink-0"></i>
+                            <span class="text-sm font-medium text-slate-100">Edukasi pasien dan keluarga</span>
+                        </div>
+                    </div>
+
+                    <div class="bg-teal-900/60 border border-teal-500/30 rounded-2xl p-5 flex items-start gap-3.5">
+                        <i data-lucide="info" class="w-5 h-5 text-teal-300 shrink-0 mt-0.5"></i>
+                        <p class="text-sm sm:text-base text-teal-100 leading-relaxed">
+                            Modalitas seperti TENS, ultrasound, terapi manual, taping, dan latihan terapeutik umum digunakan dalam praktik fisioterapi untuk mendukung pemulihan sesuai kondisi pasien.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================================
+             HALAMAN 4: PEMERIKSAAN DAN KONSULTASI
+        ========================================================== -->
+        <section id="page-pemeriksaan" class="page-section hidden">
+            <!-- Page Header -->
+            <div class="bg-gradient-to-b from-teal-50/80 to-white border-b border-slate-200/70 py-12 sm:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <span class="text-teal-700 font-semibold text-xs uppercase tracking-wider bg-teal-100/80 px-3 py-1 rounded-full">Alur & Persiapan Pasien</span>
+                    <h1 class="font-heading text-3xl sm:text-4xl font-extrabold text-slate-900 mt-3">Pemeriksaan dan Konsultasi</h1>
+                    <p class="text-slate-600 mt-3 max-w-3xl text-base sm:text-lg leading-relaxed">
+                        Langkah awal yang akurat untuk memahami keluhan tubuh Anda dan merancang program fisioterapi yang tepat, aman, dan terukur.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-16 space-y-16">
+                
+                <!-- Bagian A: Pemeriksaan Fisioterapi -->
+                <div class="space-y-10">
+                    <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm">
+                        <div class="max-w-3xl mb-8">
+                            <span class="text-teal-600 font-semibold text-xs uppercase tracking-wider">Penilaian Klinis Awal</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Pemeriksaan Fisioterapi</h2>
+                            <p class="text-slate-600 mt-3 text-base sm:text-lg leading-relaxed">
+                                Pemeriksaan fisioterapi adalah langkah awal untuk memahami kondisi tubuh, keluhan yang dialami, serta fungsi gerak pasien. Hasil pemeriksaan menjadi dasar penyusunan program terapi yang aman dan sesuai kebutuhan.
+                            </p>
+                        </div>
+
+                        <!-- Yang Diperiksa (9 Poin) -->
+                        <div class="bg-slate-50 rounded-2xl p-6 sm:p-8 border border-slate-200/70">
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-5 flex items-center gap-2.5">
+                                <span class="w-8 h-8 rounded-lg bg-teal-600 text-white flex items-center justify-center"><i data-lucide="search-check" class="w-4 h-4"></i></span>
+                                Yang Diperiksa
+                            </h3>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Riwayat keluhan dan aktivitas sehari-hari</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Lokasi, tingkat, dan pola nyeri</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Postur tubuh</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Rentang gerak sendi</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Kekuatan otot</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Keseimbangan dan koordinasi</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Kemampuan berjalan atau berpindah posisi</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Fungsi pernapasan, bila diperlukan</span>
+                                </div>
+                                <div class="bg-white p-4 rounded-xl border border-slate-200/70 flex items-center gap-3">
+                                    <span class="w-2.5 h-2.5 rounded-full bg-teal-500 shrink-0"></span>
+                                    <span class="text-sm font-medium text-slate-700">Riwayat cedera, operasi, atau penyakit tertentu</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tahapan Pemeriksaan (5 Langkah Timeline) -->
+                    <div>
+                        <div class="text-center max-w-2xl mx-auto mb-10">
+                            <span class="text-teal-600 font-semibold text-sm uppercase tracking-wider">Alur Sesi Pertama</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Tahapan Pemeriksaan</h2>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-5 gap-5">
+                            <!-- Step 1 -->
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative">
+                                <div class="w-10 h-10 rounded-full bg-teal-600 text-white font-heading font-bold flex items-center justify-center mb-4 shadow-sm">1</div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Wawancara awal</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">Fisioterapis menanyakan keluhan, riwayat kesehatan, aktivitas, dan tujuan pasien.</p>
+                            </div>
+
+                            <!-- Step 2 -->
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative">
+                                <div class="w-10 h-10 rounded-full bg-teal-600 text-white font-heading font-bold flex items-center justify-center mb-4 shadow-sm">2</div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Pemeriksaan fisik</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">Dilakukan penilaian postur, gerak sendi, kekuatan otot, keseimbangan, dan fungsi tubuh.</p>
+                            </div>
+
+                            <!-- Step 3 -->
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative">
+                                <div class="w-10 h-10 rounded-full bg-teal-600 text-white font-heading font-bold flex items-center justify-center mb-4 shadow-sm">3</div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Penilaian kondisi</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">Hasil pemeriksaan dianalisis untuk menentukan masalah utama dan kebutuhan terapi.</p>
+                            </div>
+
+                            <!-- Step 4 -->
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative">
+                                <div class="w-10 h-10 rounded-full bg-teal-600 text-white font-heading font-bold flex items-center justify-center mb-4 shadow-sm">4</div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Penyusunan program terapi</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">Fisioterapis menyusun rencana perawatan dan latihan sesuai kondisi pasien.</p>
+                            </div>
+
+                            <!-- Step 5 -->
+                            <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm relative">
+                                <div class="w-10 h-10 rounded-full bg-sky-600 text-white font-heading font-bold flex items-center justify-center mb-4 shadow-sm">5</div>
+                                <h3 class="font-heading font-bold text-slate-900 text-base mb-2">Edukasi dan evaluasi</h3>
+                                <p class="text-sm text-slate-600 leading-relaxed">Pasien diberi penjelasan mengenai kondisi, latihan rumah, serta perkembangan pemulihan yang akan dipantau.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bagian B: Konsultasi Fisioterapi -->
+                <div class="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 shadow-sm space-y-10">
+                    <div class="max-w-3xl">
+                        <span class="text-sky-600 font-semibold text-xs uppercase tracking-wider">Diskusi & Arahan Pemulihan</span>
+                        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Konsultasi Fisioterapi</h2>
+                        <p class="text-slate-600 mt-3 text-base sm:text-lg leading-relaxed">
+                            Konsultasi fisioterapi membantu Anda memahami kondisi tubuh dan mendapatkan arahan yang tepat sebelum memulai terapi. Pada sesi ini, fisioterapis akan mendengarkan keluhan, melakukan penilaian awal, dan memberikan rekomendasi langkah pemulihan.
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Yang Bisa Dikonsultasikan (9 Poin) -->
+                        <div class="bg-teal-50/60 rounded-2xl p-6 sm:p-7 border border-teal-100">
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-4 flex items-center gap-2.5">
+                                <i data-lucide="message-square-heart" class="w-5 h-5 text-teal-600"></i>
+                                Yang Bisa Dikonsultasikan
+                            </h3>
+                            <ul class="space-y-2.5 text-sm sm:text-base text-slate-700">
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Nyeri leher, punggung, bahu, pinggang, atau lutut</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Kaku dan keterbatasan gerak</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Cedera olahraga</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Nyeri atau kelemahan setelah operasi</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Gangguan keseimbangan dan risiko jatuh</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Postur tubuh yang kurang baik</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Pemulihan pasca stroke</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Latihan yang aman untuk kondisi tertentu</li>
+                                <li class="flex items-start gap-2.5"><i data-lucide="check" class="w-4 h-4 text-teal-600 shrink-0 mt-1"></i> Program rehabilitasi di rumah</li>
+                            </ul>
+                        </div>
+
+                        <!-- Siapa yang Dapat Menggunakan Layanan Ini? (7 Poin) -->
+                        <div class="bg-sky-50/60 rounded-2xl p-6 sm:p-7 border border-sky-100">
+                            <h3 class="font-heading font-bold text-slate-900 text-lg mb-4 flex items-center gap-2.5">
+                                <i data-lucide="users-round" class="w-5 h-5 text-sky-600"></i>
+                                Siapa yang Dapat Menggunakan Layanan Ini?
+                            </h3>
+                            <ul class="space-y-3 text-sm sm:text-base text-slate-700">
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Pekerja yang mengalami nyeri akibat duduk lama atau postur kurang baik</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Atlet dan penggemar olahraga yang mengalami cedera</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Lansia dengan gangguan keseimbangan atau nyeri sendi</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Pasien pasca operasi yang membutuhkan rehabilitasi</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Pasien pasca stroke atau gangguan neurologis</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Anak dengan gangguan perkembangan motorik</li>
+                                <li class="flex items-start gap-2.5"><span class="w-2 h-2 rounded-full bg-sky-600 shrink-0 mt-2"></span> Siapa pun yang ingin meningkatkan fungsi gerak dan kualitas hidup</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Persiapan Sebelum Pemeriksaan (Checklist Interaktif 5 Poin) -->
+                <div class="bg-sage-50 rounded-3xl p-8 sm:p-10 border border-sage-200/80">
+                    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                        <div>
+                            <span class="text-sage-700 font-semibold text-xs uppercase tracking-wider">Panduan Kunjungan</span>
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-slate-900 mt-1">Persiapan Sebelum Pemeriksaan</h2>
+                        </div>
+                        <span class="text-xs font-medium text-sage-700 bg-white px-3.5 py-1.5 rounded-full border border-sage-200 self-start sm:self-auto">
+                            Klik item untuk menandai persiapan Anda
+                        </span>
+                    </div>
+
+                    <div class="space-y-3" id="prep-checklist">
+                        <label class="flex items-start gap-3.5 p-4 bg-white rounded-2xl border border-slate-200/80 cursor-pointer hover:border-teal-300 transition-all select-none">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-medium text-sm sm:text-base">Gunakan pakaian yang nyaman dan memudahkan pemeriksaan area keluhan.</span>
+                        </label>
+                        <label class="flex items-start gap-3.5 p-4 bg-white rounded-2xl border border-slate-200/80 cursor-pointer hover:border-teal-300 transition-all select-none">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-medium text-sm sm:text-base">Bawa hasil pemeriksaan medis, rontgen, MRI, atau surat rujukan bila ada.</span>
+                        </label>
+                        <label class="flex items-start gap-3.5 p-4 bg-white rounded-2xl border border-slate-200/80 cursor-pointer hover:border-teal-300 transition-all select-none">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-medium text-sm sm:text-base">Ceritakan riwayat keluhan, obat yang dikonsumsi, dan riwayat cedera.</span>
+                        </label>
+                        <label class="flex items-start gap-3.5 p-4 bg-white rounded-2xl border border-slate-200/80 cursor-pointer hover:border-teal-300 transition-all select-none">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-medium text-sm sm:text-base">Informasikan bila sedang hamil atau memiliki kondisi kesehatan tertentu.</span>
+                        </label>
+                        <label class="flex items-start gap-3.5 p-4 bg-white rounded-2xl border border-slate-200/80 cursor-pointer hover:border-teal-300 transition-all select-none">
+                            <input type="checkbox" class="mt-1 w-5 h-5 rounded border-slate-300 text-teal-600 focus:ring-teal-500">
+                            <span class="text-slate-700 font-medium text-sm sm:text-base">Datang lebih awal untuk mengisi data dan konsultasi awal.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Ajakan Bertindak (CTA Banner Pemeriksaan) -->
+                <div class="bg-gradient-to-br from-teal-700 via-teal-800 to-slate-900 rounded-3xl p-8 sm:p-12 text-white shadow-xl">
+                    <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-8">
+                        <div class="max-w-2xl space-y-2.5">
+                            <h2 class="font-heading text-2xl sm:text-3xl font-bold leading-tight">
+                                Jangan biarkan nyeri membatasi aktivitas Anda.
+                            </h2>
+                            <p class="text-teal-100 text-base sm:text-lg leading-relaxed">
+                                Lakukan pemeriksaan dan konsultasi fisioterapi untuk mendapatkan penanganan yang tepat sejak awal.
+                            </p>
+                        </div>
+                        <div class="flex flex-col sm:flex-row gap-3.5 shrink-0">
+                            <button onclick="openBookingModal('Pemeriksaan & Konsultasi Fisioterapi')" class="inline-flex items-center justify-center gap-2 bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold px-7 py-3.5 rounded-2xl shadow-lg transition-all">
+                                <i data-lucide="calendar-check" class="w-5 h-5"></i>
+                                <span>Jadwalkan Pemeriksaan</span>
+                            </button>
+                            <button onclick="openContactModal()" class="inline-flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white border border-white/25 font-semibold px-6 py-3.5 rounded-2xl transition-all">
+                                <i data-lucide="phone" class="w-5 h-5"></i>
+                                <span>Hubungi Kami</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <!-- =========================================================
+         FOOTER PROFESIONAL
+    ========================================================== -->
+    <footer class="bg-slate-900 text-slate-300 border-t border-slate-800 mt-auto">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10">
+                <!-- Brand & Deskripsi -->
+                <div class="lg:col-span-4 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-teal-600 flex items-center justify-center text-white">
+                            <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M18 4a2 2 0 1 0 0 4 2 2 0 0 0 0-4z"/>
+                                <path d="M15 22v-4l-3-3 1-5 4 2h3"/>
+                                <path d="M7 14l3-4 3 1"/>
+                                <path d="M5 22l3-6"/>
+                            </svg>
+                        </div>
+                        <span class="font-heading font-bold text-xl text-white">Fisioterapi <span class="text-teal-400">Prima</span></span>
+                    </div>
+                    <p class="text-sm text-slate-400 leading-relaxed">
+                        Layanan fisioterapi profesional untuk membantu pemulihan, pencegahan, dan peningkatan fungsi gerak tubuh secara aman, terarah, dan berkelanjutan.
+                    </p>
+                    <div class="pt-2 flex flex-wrap gap-2.5">
+                        <button onclick="openBookingModal('Konsultasi Fisioterapi')" class="bg-teal-600 hover:bg-teal-500 text-white text-xs font-semibold px-4 py-2.5 rounded-xl transition-colors">
+                            Jadwalkan Konsultasi
+                        </button>
+                        <button onclick="openContactModal()" class="bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold px-4 py-2.5 rounded-xl border border-slate-700 transition-colors">
+                            Hubungi Kami
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Navigasi Halaman -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Navigasi Halaman</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><button onclick="navigateTo('beranda')" class="hover:text-teal-400 transition-colors">Beranda</button></li>
+                        <li><button onclick="navigateTo('tentang')" class="hover:text-teal-400 transition-colors">Tentang Kami</button></li>
+                        <li><button onclick="navigateTo('layanan')" class="hover:text-teal-400 transition-colors">Layanan Fisioterapi</button></li>
+                        <li><button onclick="navigateTo('pemeriksaan')" class="hover:text-teal-400 transition-colors">Pemeriksaan & Konsultasi</button></li>
+                    </ul>
+                </div>
+
+                <!-- Peminatan Layanan -->
+                <div class="lg:col-span-2 space-y-3">
+                    <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Peminatan</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li><button onclick="openSpecialtyFromHome('muskuloskeletal')" class="hover:text-teal-400 transition-colors">Muskuloskeletal</button></li>
+                        <li><button onclick="openSpecialtyFromHome('neurologis')" class="hover:text-teal-400 transition-colors">Neurologis</button></li>
+                        <li><button onclick="openSpecialtyFromHome('kardiopulmoner')" class="hover:text-teal-400 transition-colors">Kardiopulmoner</button></li>
+                        <li><button onclick="openSpecialtyFromHome('olahraga')" class="hover:text-teal-400 transition-colors">Olahraga</button></li>
+                        <li><button onclick="openSpecialtyFromHome('pediatri')" class="hover:text-teal-400 transition-colors">Pediatri & Geriatri</button></li>
+                    </ul>
+                </div>
+
+                <!-- Jam Operasional & Kontak Contoh -->
+                <div class="lg:col-span-3 space-y-3">
+                    <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider">Jam Operasional Klinik</h3>
+                    <ul class="space-y-2 text-sm text-slate-400">
+                        <li class="flex justify-between"><span>Senin – Jumat</span><span class="text-slate-200 font-medium">08.00 – 20.00 WIB</span></li>
+                        <li class="flex justify-between"><span>Sabtu</span><span class="text-slate-200 font-medium">08.00 – 16.00 WIB</span></li>
+                        <li class="flex justify-between"><span>Minggu / Libur</span><span class="text-teal-400 font-medium">Dengan Janji Temu</span></li>
+                    </ul>
+                    <div class="pt-2 text-xs text-slate-400 flex items-start gap-2">
+                        <i data-lucide="map-pin" class="w-4 h-4 text-teal-400 shrink-0 mt-0.5"></i>
+                        <span>Jl. Kesehatan Gerak No. 12, Klinik Rehabilitasi Medik & Fisioterapi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-10 pt-6 border-t border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500">
+                <p>&copy; 2026 Layanan Fisioterapi Prima. Seluruh hak cipta dilindungi.</p>
+                <p>Gerak Lebih Bebas, Hidup Lebih Berkualitas.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================================
+         MODAL 1: JADWALKAN KONSULTASI / PEMERIKSAAN
+    ========================================================== -->
+    <div id="booking-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative max-h-[90vh] overflow-y-auto">
+            <button onclick="closeBookingModal()" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Form View -->
+            <div id="booking-form-view">
+                <div class="flex items-center gap-3 mb-2">
+                    <div class="w-10 h-10 rounded-xl bg-teal-100 text-teal-700 flex items-center justify-center">
+                        <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-heading text-xl font-bold text-slate-900">Jadwalkan Konsultasi</h3>
+                        <p class="text-xs text-slate-500">Isi data singkat untuk reservasi sesi pemeriksaan & terapi.</p>
+                    </div>
+                </div>
+
+                <form onsubmit="submitBookingForm(event)" class="space-y-4 mt-5">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nama Lengkap Pasien *</label>
+                        <input type="text" id="book-name" required placeholder="Contoh: Budi Santoso" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 outline-none text-sm">
+                    </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Nomor WhatsApp / Telepon *</label>
+                            <input type="tel" id="book-phone" required placeholder="0812-xxxx-xxxx" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 outline-none text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Tanggal Rencana Kunjungan *</label>
+                            <input type="date" id="book-date" required class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 outline-none text-sm">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Pilih Layanan / Peminatan</label>
+                        <select id="book-service" class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 outline-none text-sm bg-white">
+                            <option value="Konsultasi & Pemeriksaan Awal">Konsultasi & Pemeriksaan Awal</option>
+                            <option value="Fisioterapi Muskuloskeletal">Fisioterapi Muskuloskeletal (Nyeri Otot, Sendi, Punggung)</option>
+                            <option value="Fisioterapi Neurologis">Fisioterapi Neurologis (Pasca Stroke, Keseimbangan)</option>
+                            <option value="Fisioterapi Kardiopulmoner">Fisioterapi Kardiopulmoner (Pernapasan & Jantung-Paru)</option>
+                            <option value="Fisioterapi Olahraga">Fisioterapi Olahraga (Cedera Olahraga & Pemulihan)</option>
+                            <option value="Fisioterapi Pediatri">Fisioterapi Pediatri (Tumbuh Kembang Gerak Anak)</option>
+                            <option value="Fisioterapi Geriatri">Fisioterapi Geriatri (Kemandirian & Keseimbangan Lansia)</option>
+                            <option value="Fisioterapi Pasca Operasi">Fisioterapi Pasca Operasi</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 uppercase tracking-wider mb-1.5">Keluhan Singkat</label>
+                        <textarea id="book-notes" rows="3" placeholder="Ceritakan lokasi nyeri, riwayat cedera, atau kebutuhan terapi Anda..." class="w-full px-4 py-3 rounded-xl border border-slate-200 focus:border-teal-500 focus:ring-2 focus:ring-teal-500/20 outline-none text-sm"></textarea>
+                    </div>
+
+                    <div class="pt-2 flex flex-col sm:flex-row gap-3">
+                        <button type="button" onclick="closeBookingModal()" class="w-full sm:w-auto px-5 py-3 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50">
+                            Batal
+                        </button>
+                        <button type="submit" class="w-full flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm px-6 py-3 rounded-xl shadow-md shadow-teal-600/20 transition-all">
+                            Konfirmasi Jadwal Konsultasi
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Confirmation View -->
+            <div id="booking-confirm-view" class="hidden text-center py-4 space-y-4">
+                <div class="w-16 h-16 rounded-full bg-teal-100 text-teal-600 flex items-center justify-center mx-auto">
+                    <i data-lucide="check-circle-2" class="w-9 h-9"></i>
+                </div>
+                <h3 class="font-heading text-2xl font-bold text-slate-900">Permintaan Jadwal Terkirim!</h3>
+                <p class="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
+                    Terima kasih, <strong id="confirm-name" class="text-slate-900"></strong>. Tim admin fisioterapi kami akan segera menghubungi Anda melalui WhatsApp/Telepon (<strong id="confirm-phone" class="text-slate-900"></strong>) untuk konfirmasi jam sesi Anda.
+                </p>
+                <div class="bg-slate-50 rounded-2xl p-4 text-left text-xs space-y-1.5 border border-slate-200/80">
+                    <p><span class="text-slate-500">Layanan:</span> <strong id="confirm-service" class="text-teal-700"></strong></p>
+                    <p><span class="text-slate-500">Tanggal Rencana:</span> <strong id="confirm-date" class="text-slate-800"></strong></p>
+                </div>
+                <div class="pt-2">
+                    <button onclick="closeBookingModal()" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm px-6 py-3 rounded-xl">
+                        Selesai
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL 2: HUBUNGI KAMI
+    ========================================================== -->
+    <div id="contact-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-100 relative">
+            <button onclick="closeContactModal()" class="absolute top-5 right-5 p-2 rounded-xl text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors" aria-label="Tutup">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <div class="flex items-center gap-3 mb-4">
+                <div class="w-11 h-11 rounded-xl bg-sky-100 text-sky-700 flex items-center justify-center">
+                    <i data-lucide="phone-call" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h3 class="font-heading text-xl font-bold text-slate-900">Hubungi Kami</h3>
+                    <p class="text-xs text-slate-500">Layanan informasi & konsultasi pasien</p>
+                </div>
+            </div>
+
+            <div class="space-y-3 my-5">
+                <div class="p-4 rounded-2xl bg-teal-50/80 border border-teal-100 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-teal-800 font-semibold">WhatsApp Layanan Pasien</p>
+                        <p class="font-heading font-bold text-slate-900 text-base mt-0.5" id="wa-number-text">0812-3456-7890</p>
+                    </div>
+                    <button onclick="copyContact('0812-3456-7890', 'Nomor WhatsApp')" class="px-3 py-2 rounded-xl bg-white text-teal-700 border border-teal-200 text-xs font-semibold hover:bg-teal-600 hover:text-white transition-colors">
+                        Salin Nomor
+                    </button>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80 flex items-center justify-between">
+                    <div>
+                        <p class="text-xs text-slate-500 font-semibold">Telepon Resepsionis Klinik</p>
+                        <p class="font-heading font-bold text-slate-900 text-base mt-0.5">(021) 789-0123</p>
+                    </div>
+                    <button onclick="copyContact('(021) 789-0123', 'Nomor Telepon')" class="px-3 py-2 rounded-xl bg-white text-slate-700 border border-slate-200 text-xs font-semibold hover:bg-slate-200 transition-colors">
+                        Salin Nomor
+                    </button>
+                </div>
+
+                <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200/80">
+                    <p class="text-xs text-slate-500 font-semibold">Alamat Klinik</p>
+                    <p class="text-sm text-slate-700 mt-1">Jl. Kesehatan Gerak No. 12, Klinik Rehabilitasi Medik & Fisioterapi</p>
+                </div>
+            </div>
+
+            <div id="copy-toast" class="hidden mb-3 text-center text-xs font-semibold text-teal-700 bg-teal-50 py-2 px-3 rounded-xl border border-teal-200">
+                Nomor berhasil disalin ke clipboard!
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="closeContactModal(); openBookingModal('Konsultasi Fisioterapi');" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm py-3 rounded-xl transition-colors">
+                    Langsung Buat Jadwal Online
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         MODAL 3: POP-UP DETAIL PHOTOCARD FISIOTERAPIS
+    ========================================================== -->
+    <div id="therapist-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-slate-900/65 backdrop-blur-sm">
+        <div class="bg-white rounded-3xl max-w-2xl w-full overflow-hidden shadow-2xl border border-slate-100 relative animate-[fadeIn_0.25s_ease-out] flex flex-col sm:flex-row">
+            <button onclick="closeTherapistModal()" class="absolute top-3.5 right-3.5 z-10 w-9 h-9 rounded-full bg-white/90 backdrop-blur-sm text-slate-700 hover:bg-slate-100 flex items-center justify-center shadow-md border border-slate-200/60 transition-colors" aria-label="Tutup">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+
+            <!-- Foto Profil di Samping (Kiri) -->
+            <div class="relative w-full sm:w-5/12 min-h-[260px] sm:min-h-[380px] bg-gradient-to-br from-teal-100 to-sky-100 shrink-0">
+                <img id="modal-therapist-photo" src="" alt="Foto Profil Fisioterapis" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/70 via-transparent to-transparent sm:hidden"></div>
+                <div class="absolute bottom-3 left-4 right-4 sm:hidden">
+                    <span id="modal-therapist-badge-mobile" class="inline-block bg-teal-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                        Spesialisasi
+                    </span>
+                </div>
+            </div>
+
+            <!-- Detail Informasi di Samping (Kanan): Nama, NPM, Spesialisasi -->
+            <div class="w-full sm:w-7/12 p-6 sm:p-7 flex flex-col justify-between space-y-4">
+                <div class="space-y-4">
+                    <div class="pr-8">
+                        <span id="modal-therapist-badge" class="hidden sm:inline-block bg-teal-50 text-teal-700 border border-teal-200/80 text-xs font-bold px-3 py-1 rounded-full mb-2">
+                            Spesialisasi
+                        </span>
+                        <h3 id="modal-therapist-name" class="font-heading text-xl sm:text-2xl font-bold text-slate-900 leading-snug">
+                            Nama Fisioterapis
+                        </h3>
+                    </div>
+
+                    <div class="bg-slate-50 rounded-2xl p-4 border border-slate-200/80 space-y-2.5">
+                        <div class="flex items-start justify-between gap-3 border-b border-slate-200/70 pb-2">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Nama</span>
+                            <span id="modal-detail-name" class="text-sm font-bold text-slate-900 text-right">-</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-3 border-b border-slate-200/70 pb-2">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">NPM</span>
+                            <span id="modal-detail-nim" class="text-sm font-bold text-teal-700 font-mono text-right">-</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-3">
+                            <span class="text-xs font-semibold text-slate-500 uppercase tracking-wider shrink-0">Spesialisasi</span>
+                            <span id="modal-detail-specialty" class="text-sm font-bold text-sky-700 text-right">-</span>
+                        </div>
+                    </div>
+
+                    <p id="modal-detail-desc" class="text-sm text-slate-600 leading-relaxed">
+                        Deskripsi fokus penanganan spesialisasi.
+                    </p>
+                </div>
+
+                <div class="pt-2 flex flex-col sm:flex-row gap-2.5">
+                    <button onclick="closeTherapistModal()" class="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-slate-200 text-slate-600 font-semibold text-sm hover:bg-slate-50 transition-colors">
+                        Tutup
+                    </button>
+                    <button id="modal-book-therapist-btn" onclick="bookWithSelectedTherapist()" class="w-full flex-1 bg-teal-600 hover:bg-teal-700 text-white font-semibold text-sm px-4 py-2.5 rounded-xl shadow-md shadow-teal-600/20 transition-all flex items-center justify-center gap-2">
+                        <i data-lucide="calendar-plus" class="w-4 h-4 shrink-0"></i>
+                        <span>Konsultasi</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================
+         JAVASCRIPT LOGIC (SPA NAVIGATION & INTERACTIVITY)
+    ========================================================== -->
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Data 4 Fisioterapis untuk Photocard & Pop-up Modal
+        const therapistsData = [
+            {
+                name: 'Adiyatma Dasta Putra, S. Tr. Kes (Ft)',
+                nim: '2606810506',
+                specialty: 'Fisioterapi Olahraga',
+                badge: 'Spesialisasi Olahraga',
+                photo: 'foto1.jpeg',
+                bookingService: 'Fisioterapi Olahraga',
+                desc: 'Berfokus pada penanganan cedera olahraga, pemulihan jaringan otot-ligamen, skrining gerak, serta program kembali berolahraga secara aman dan bertahap.'
+            },
+            {
+                name: 'Kayla Nisa Kirana, S. Tr. Kes (Ft)',
+                nim: '2606864276',
+                specialty: 'Fisioterapi Neurologi',
+                badge: 'Spesialisasi Neurologi',
+                photo: 'foto2.jpeg',
+                bookingService: 'Fisioterapi Neurologis',
+                desc: 'Berfokus pada pemulihan fungsi gerak akibat gangguan sistem saraf, rehabilitasi pasca stroke, latihan keseimbangan, koordinasi tubuh, dan latihan berjalan.'
+            },
+            {
+                name: 'Errika Dyah Haryanti, S. Tr. Kes (Ft)',
+                nim: '2606889846',
+                specialty: 'Fisioterapi Pediatri',
+                badge: 'Spesialisasi Pediatri',
+                photo: 'foto2.jpeg',
+                bookingService: 'Fisioterapi Pediatri',
+                desc: 'Berfokus pada stimulasi dan dukungan perkembangan gerak anak sesuai tahap usianya, latihan motorik kasar-halus, serta edukasi latihan mandiri bagi orang tua.'
+            },
+            {
+                name: 'Intan Nurmalia, S. Tr. Kes (Ft)',
+                nim: '2606863954',
+                specialty: 'Fisioterapi Kardiopulmoner',
+                badge: 'Spesialisasi Kardiopulmoner',
+                photo: 'foto2.jpeg',
+                bookingService: 'Fisioterapi Kardiopulmoner',
+                desc: 'Berfokus pada peningkatan fungsi pernapasan, teknik pembuangan lendir, latihan batuk efektif, serta peningkatan kapasitas paru dan kebugaran bertahap.'
+            }
+        ];
+
+        let selectedTherapistBookingService = 'Konsultasi Fisioterapi';
+
+        function openTherapistModal(index) {
+            const data = therapistsData[index];
+            if (!data) return;
+
+            document.getElementById('modal-therapist-photo').src = data.photo;
+            document.getElementById('modal-therapist-badge').textContent = data.badge;
+            const mobileBadge = document.getElementById('modal-therapist-badge-mobile');
+            if (mobileBadge) mobileBadge.textContent = data.badge;
+            document.getElementById('modal-therapist-name').textContent = data.name;
+            document.getElementById('modal-detail-name').textContent = data.name;
+            document.getElementById('modal-detail-nim').textContent = data.nim;
+            document.getElementById('modal-detail-specialty').textContent = data.specialty;
+            document.getElementById('modal-detail-desc').textContent = data.desc;
+
+            selectedTherapistBookingService = data.bookingService;
+
+            const modal = document.getElementById('therapist-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            lucide.createIcons();
+        }
+
+        function closeTherapistModal() {
+            const modal = document.getElementById('therapist-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function bookWithSelectedTherapist() {
+            closeTherapistModal();
+            openBookingModal(selectedTherapistBookingService);
+        }
+
+        // Set default min date on booking input to today
+        const todayStr = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('book-date');
+        if (dateInput) {
+            dateInput.min = todayStr;
+            dateInput.value = todayStr;
+        }
+
+        // SPA Page Navigation
+        function navigateTo(pageId) {
+            const pages = ['beranda', 'tentang', 'layanan', 'pemeriksaan'];
+            pages.forEach(id => {
+                const el = document.getElementById(`page-${id}`);
+                if (el) {
+                    if (id === pageId) {
+                        el.classList.remove('hidden');
+                    } else {
+                        el.classList.add('hidden');
+                    }
+                }
+            });
+
+            // Update Desktop Nav Active State
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                if (btn.dataset.nav === pageId) {
+                    btn.classList.add('bg-white', 'text-teal-700', 'shadow-sm');
+                    btn.classList.remove('text-slate-600', 'hover:text-slate-900');
+                } else {
+                    btn.classList.remove('bg-white', 'text-teal-700', 'shadow-sm');
+                    btn.classList.add('text-slate-600', 'hover:text-slate-900');
+                }
+            });
+
+            // Update Mobile Nav Active State
+            document.querySelectorAll('.mobile-nav-btn').forEach(btn => {
+                if (btn.dataset.navMobile === pageId) {
+                    btn.classList.add('bg-teal-50', 'text-teal-700');
+                    btn.classList.remove('text-slate-700');
+                } else {
+                    btn.classList.remove('bg-teal-50', 'text-teal-700');
+                    btn.classList.add('text-slate-700');
+                }
+            });
+
+            // Close mobile menu if open
+            const mobileMenu = document.getElementById('mobile-menu');
+            if (!mobileMenu.classList.contains('hidden')) {
+                toggleMobileMenu();
+            }
+
+            // Smooth scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Mobile Menu Toggle
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobile-menu');
+            const openIcon = document.getElementById('menu-icon-open');
+            const closeIcon = document.getElementById('menu-icon-close');
+
+            menu.classList.toggle('hidden');
+            openIcon.classList.toggle('hidden');
+            closeIcon.classList.toggle('hidden');
+        }
+
+        // Filter Specialties on Layanan Page
+        function filterSpecialty(specKey) {
+            // Update tab styles
+            document.querySelectorAll('.spec-tab-btn').forEach(btn => {
+                if (btn.dataset.spec === specKey) {
+                    btn.classList.add('bg-teal-600', 'text-white', 'shadow-sm');
+                    btn.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                } else {
+                    btn.classList.remove('bg-teal-600', 'text-white', 'shadow-sm');
+                    btn.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+                }
+            });
+
+            // Filter cards
+            document.querySelectorAll('[data-specialty-card]').forEach(card => {
+                if (specKey === 'all' || card.dataset.specialtyCard === specKey) {
+                    card.classList.remove('hidden');
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+        }
+
+        // Navigate from Home Featured Services to Specific Specialty Tab
+        function openSpecialtyFromHome(specKey) {
+            navigateTo('layanan');
+            filterSpecialty(specKey);
+        }
+
+        // Booking Modal Controls
+        function openBookingModal(defaultService) {
+            const modal = document.getElementById('booking-modal');
+            const formView = document.getElementById('booking-form-view');
+            const confirmView = document.getElementById('booking-confirm-view');
+            const selectEl = document.getElementById('book-service');
+
+            formView.classList.remove('hidden');
+            confirmView.classList.add('hidden');
+
+            if (defaultService && selectEl) {
+                for (let i = 0; i < selectEl.options.length; i++) {
+                    if (selectEl.options[i].value.toLowerCase().includes(defaultService.toLowerCase())) {
+                        selectEl.selectedIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeBookingModal() {
+            const modal = document.getElementById('booking-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        function submitBookingForm(e) {
+            e.preventDefault();
+            const name = document.getElementById('book-name').value.trim();
+            const phone = document.getElementById('book-phone').value.trim();
+            const date = document.getElementById('book-date').value;
+            const service = document.getElementById('book-service').value;
+
+            document.getElementById('confirm-name').textContent = name;
+            document.getElementById('confirm-phone').textContent = phone;
+            document.getElementById('confirm-service').textContent = service;
+            document.getElementById('confirm-date').textContent = date;
+
+            document.getElementById('booking-form-view').classList.add('hidden');
+            document.getElementById('booking-confirm-view').classList.remove('hidden');
+        }
+
+        // Contact Modal Controls
+        function openContactModal() {
+            const modal = document.getElementById('contact-modal');
+            document.getElementById('copy-toast').classList.add('hidden');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeContactModal() {
+            const modal = document.getElementById('contact-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        }
+
+        // Copy Contact Helper (Using execCommand fallback for iframe compatibility)
+        function copyContact(text, label) {
+            const tempInput = document.createElement('input');
+            tempInput.value = text;
+            document.body.appendChild(tempInput);
+            tempInput.select();
+            try {
+                document.execCommand('copy');
+                const toast = document.getElementById('copy-toast');
+                toast.textContent = `${label} (${text}) berhasil disalin!`;
+                toast.classList.remove('hidden');
+            } catch (err) {
+                console.error('Gagal menyalin teks', err);
+            }
+            document.body.removeChild(tempInput);
+        }
+
+        // Close modals on backdrop click
+        window.addEventListener('click', (e) => {
+            const bookingModal = document.getElementById('booking-modal');
+            const contactModal = document.getElementById('contact-modal');
+            const therapistModal = document.getElementById('therapist-modal');
+            if (e.target === bookingModal) closeBookingModal();
+            if (e.target === contactModal) closeContactModal();
+            if (e.target === therapistModal) closeTherapistModal();
+        });
+
+        // Initialize default active tab state on load
+        navigateTo('beranda');
+    </script>
+</body>
+</html>
